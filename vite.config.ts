@@ -13,5 +13,6 @@ export default defineConfig({
     vueDevTools(),
     mkcert()
   ],
+  base: process.env.NODE_ENV === 'production' ? '/bleedcode-frontend/' : '/',
   resolve: {alias: {'@': fileURLToPath(new URL('./src', import.meta.url))},},
 });
