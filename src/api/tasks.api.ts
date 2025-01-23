@@ -67,7 +67,7 @@ export class TasksApi{
 
   static async getTaskSolution(taskId: number | string, userId: number | string){
     try{
-      const {data: solution} = await api.get(`/api/tasks/${taskId}/solution/${userId}`);
+      const {data: solution} = await api.get(`/api/solutions?task_id=${taskId}&user_id=${userId}`);
 
       return solution;
     }catch{

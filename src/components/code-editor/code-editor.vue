@@ -11,9 +11,10 @@
   />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import {
-    defineComponent, ref, shallowRef
+    ref, shallowRef,
+    watch
   } from 'vue';
   import {Codemirror} from 'vue-codemirror';
   import {javascript} from '@codemirror/lang-javascript';
@@ -21,26 +22,19 @@
   import type {EditorView} from 'codemirror';
   import {EditorState} from '@codemirror/state';
 
-  export default defineComponent({
-    components: {Codemirror},
-    setup(props: {code: string}) {
+  const props = defineProps<{solution: string}>();
+  const code = ref(props.solution);
+  const extensions = [javascript(), oneDark];
+  const view = shallowRef();
+  const handleReady = (payload: {
+    view: EditorView;
+    state: EditorState;
+    container: HTMLDivElement
+  }) => {
+    view.value = payload.view;
+  };
 
-      const code = ref(props.code || "console.log('Hello World!')");
-      const extensions = [javascript(), oneDark];
-      const view = shallowRef();
-      const handleReady = (payload: {
-        view: EditorView;
-        state: EditorState;
-        container: HTMLDivElement
-      }) => {
-        view.value = payload.view;
-      };
-
-      return {
-        code,
-        extensions,
-        handleReady,
-      };
-    }
+  watch(() => (props.solution), (newSolution: string) => {
+    code.value = newSolution;
   });
 </script>

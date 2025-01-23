@@ -22,14 +22,19 @@
   onMounted(async () => {
     try {
       task.value = await TasksApi.getTask(Number(id));
-      solution.value = await TasksApi.getTaskSolution(Number(id), user.profile!.id!);
     } catch {
       error.value = 'Ошибка при загрузке задачи id: ' + id;
       console.error(error.value);
     } finally {
       isLoading.value = false;
       document.title = task.value?.title ? 'BleedCode - ' + task.value.title : 'BleedCode';
+    }
+    try{
+      const result = await TasksApi.getTaskSolution(Number(id), user.profile!.id!);
 
+      solution.value = result.source_code;
+    }catch{
+      console.error('Ошибка при получении решения задачи id: ' + id);
     }
   });
 </script>
@@ -85,7 +90,7 @@
             </UiSpinner>
           </div>
           <div class="col-7">
-            <CodeEditor :code="solution" />
+            <CodeEditor v-model:solution="solution" />
           </div>
         </div>
       </div>
