@@ -1,14 +1,14 @@
 <template>
   <div class="auth-page d-flex justify-content-center align-items-center">
     <div class="auth-container position-absolute top-50 translate-middle-y border rounded shadow p-4 bg-light">
-      <h1 class="text-center mb-4">{{ isLogin ? 'Sign In' : 'Sign Up' }}</h1>
+      <h1 class="text-center mb-4">{{ isLogin ? 'Вход' : 'Регистрация' }}</h1>
       <form @submit.prevent="handleSubmit">
         <div class="error-message text-danger text-center mb-3">
           <span v-if="errorMessage">{{ errorMessage }}</span>
         </div>
 
         <div class="form-group mb-3">
-          <label for="username" class="form-label">Username</label>
+          <label for="username" class="form-label">Имя пользователя</label>
           <input
             id="username"
             v-model="form.username"
@@ -19,7 +19,7 @@
           />
         </div>
         <div class="form-group mb-4">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label">Пароль</label>
           <input
             id="password"
             v-model="form.password"
@@ -30,7 +30,7 @@
           />
         </div>
         <div class="form-group mb-4" v-if="!isLogin">
-          <label class="form-label" for="role">Select role</label>
+          <label class="form-label" for="role">Роль пользователя</label>
           <select
             class="form-select"
             id="role"
@@ -42,13 +42,13 @@
           </select>
         </div>
         <button type="submit" class="btn btn-primary w-100">
-          {{ isLogin ? 'Sign In' : 'Sign Up' }}
+          {{ isLogin ? 'Вход' : 'Регистрация' }}
         </button>
       </form>
       <p class="text-center mt-3">
         {{ isLogin ? "Ещё нет аккаунта?" : 'Уже есть аккаунт?' }}
         <a href="#" @click.prevent="toggleAuth">
-          {{ isLogin ? 'Sign Up' : 'Sign In' }}
+          {{ isLogin ? 'Регистрация' : 'Вход' }}
         </a>
       </p>
     </div>
