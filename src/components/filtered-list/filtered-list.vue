@@ -29,7 +29,12 @@
   } from 'vue';
   import {TasksApi} from '@/api/tasks.api';
   import type {Task} from '@/types';
-  import router from '@/router';
+  import {
+    useRoute, useRouter
+  } from 'vue-router';
+
+  const router = useRouter();
+  const route = useRoute();
 
   interface Filters{
     category: string;
@@ -67,7 +72,7 @@
     }), {});
 
     router.replace({
-      path: location.pathname,
+      path: route.path,
       query: {
         ...filterParams,
         page: currentPage.value

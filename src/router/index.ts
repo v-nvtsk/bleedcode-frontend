@@ -18,18 +18,13 @@ declare module 'vue-router' {
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'Главная',
       component: MainView,
       meta: {title: 'BleedCode'}
-    },
-    {
-      path: '/',
-      redirect: () => ({path: '/home'})
-
     },
     {
       path: '/auth',
@@ -89,7 +84,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth && !userStore.isAuthenticated) {
     return next({
       path: '/auth',
-      query: {redirect: to.fullPath},
+      query: {redirect: to.path},
     });
   }
   next();
